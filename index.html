@@ -130,15 +130,12 @@
          const formObject = document.getElementById('formVideoRequest');
          formObject.addEventListener('submit', (e) => {
            e.preventDefault();
-           const formData = new FormData(formObject);
            fetch('http://localhost:7777/video-request', {
              method: 'POST',
-             body: formData,
+             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+             body: new URLSearchParams(new FormData(formObject)),
             })
-            .then((bold) => bold.json())
-            .then((data) => {
-              console.log(data)
-            })
+            .then((data) => {}) 
          });
       });
     </script>
