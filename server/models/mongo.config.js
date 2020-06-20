@@ -17,3 +17,5 @@ db.once('open', () => {
 });
 
 module.exports = mongoose;
+mongoose.set('useFindAndModify', false);
+
