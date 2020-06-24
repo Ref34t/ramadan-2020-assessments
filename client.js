@@ -9,14 +9,14 @@ function getSingleVideoReq(vidReq) {
                 <p class="text-muted mb-2">${vidReq.topic_details}</p>
                 <p class="mb-0 text-muted">
                 ${ vidReq.expected_result &&
-                   `<strong>Expected results:</strong>${vidReq.expected_result}`
+                `<strong>Expected results:</strong>${vidReq.expected_result}`
                 }
                 </p>
             </div>
             <div class="d-flex flex-column text-center">
                 <a id="votesUps_${vidReq._id}" class="btn btn-link">🔺</a>
                 <h3 id="votesScore_${vidReq._id}">
-                 ${vidReq.votes.ups - vidReq.votes.downs}</h3>
+                ${vidReq.votes.ups - vidReq.votes.downs}</h3>
                 <a id="votesDowns_${vidReq._id}" class="btn btn-link">🔻</a>
             </div>
             </div>
@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const formObject = document.getElementById('formVideoRequest');
     const listOfVideoElem = document.getElementById('listOfRequests');
 
-    
     fetch('http://localhost:7777/video-request')
         .then((blob) => blob.json())
         .then((data) => {
@@ -54,16 +53,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 const votesScoreElem = document.getElementById(`votesScore_${vidReq._id}`);
                 const votesDownsElem = document.getElementById(`votesDowns_${vidReq._id}`);
 
-                
                 votesUpsElem.addEventListener('click', (e) =>{
                     fetch('http://localhost:7777/video-request/vote', {
                         method: 'PUT',
                         headers: {'content-Type': 'application/json'},
                         body: JSON.stringify({ id: vidReq._id, vote_type: 'ups'})
                     }).then((blob) => blob.json())
-                      .then((data) => {
-                            votesScoreElem.innerText = data.ups - data.downs;
-                      })
+                    .then((data) => {
+                        votesScoreElem.innerText = data.ups - data.downs;
+                    })
                 })
 
                 votesDownsElem.addEventListener('click', (e) => {
@@ -72,12 +70,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         headers: {'content-Type': 'application/json'},
                         body: JSON.stringify({ id: vidReq._id, vote_type: 'downs'})
                     }).then((blob) => blob.json())
-                      .then((data) => {
+                    .then((data) => {
                         votesScoreElem.innerText = data.ups - data.downs;
                     })
                 })
             });
-    });
+});
 
     formObject.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -86,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: new URLSearchParams(new FormData(formObject)),
-       })
+        })
         .then((blob) => blob.json())
         .then((data) => {
             listOfVideoElem.prepend(getSingleVideoReq(data));
