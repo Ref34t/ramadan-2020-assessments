@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         headers: {'content-Type': 'application/json'},
                         body: JSON.stringify({ id: vidReq._id, vote_type: 'downs'})
                     }).then((blob) => blob.json())
-                    .then((data) => {
+                      .then((data) => {
                         votesScoreElem.innerText = data.ups - data.downs;
                     })
                 })
